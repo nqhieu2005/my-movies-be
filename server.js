@@ -19,7 +19,7 @@ app.get("/api/movies/new", async(req, res) => {
     const page = req.query.page || 1;
     try {
         const response = await axios.get(`${API_DOMAIN}/danh-sach/phim-moi-cap-nhat?page=${page}`);
-        console.log("page: ", page);
+        // console.log("page: ", page);
         res.json(response.data);
     } catch (error) {
         res.status(500).json({message: 'Error fetching new movies', error: error.message});
@@ -35,6 +35,26 @@ app.get("/api/movies/:slug", async(req, res) =>{
         res.json(movieData);
     } catch (error) {
         res.status(500).json({ message: "Error fetching movie details" });
+    }
+});
+
+app.get("/api/categories", async(req, res) =>{
+    try {
+        const response = await axios.get(`${API_DOMAIN}/the-loai`);
+        const categories = response.data;
+        res.json(categories);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching movies categories" });
+    }
+});
+
+app.get("/api/country", async(req, res) =>{
+    try {
+        const response = await axios.get(`${API_DOMAIN}/quoc-gia`);
+        const country = response.data;
+        res.json(country);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching movies country" });
     }
 });
 

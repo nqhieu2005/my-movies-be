@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.json());
 
 const API_DOMAIN = 'https://phimapi.com';
-// const PLAYER_DOMAIN = 'https://player.phimapi.com';
 
 app.get("/", async (req, res) => {
     res.status(200).json({message: "Welcome to the Movie API"});

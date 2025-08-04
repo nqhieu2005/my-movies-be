@@ -58,6 +58,25 @@ app.get("/api/country", async(req, res) =>{
     }
 });
 
+app.get("/api/movies/search", async (req, res) => {
+    try {
+        const keyword = req.query.keyword; 
+        const queryParams = req.query; 
+
+        if (!keyword) {
+            return res.status(400).json({ message: "keyword is required" });
+        }
+        
+        const response = await axios.get(`${API_DOMAIN}/v1/api/tim-kiem`, {
+            params: queryParams
+        });
+        
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching filtered movies", error: error.message }); 
+    }
+});
+
 app.get("/api/movies/:type_list", async (req, res) => {
     try {
         const type_list = req.params.type_list;
@@ -75,6 +94,8 @@ app.get("/api/movies/:type_list", async (req, res) => {
         res.status(500).json({ message: "Error fetching filtered movies", error: error.message }); 
     }
 })
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
